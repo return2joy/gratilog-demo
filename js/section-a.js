@@ -1,31 +1,28 @@
-// Section A: Chat-based Editor (UX5001 Section 3)
+// Section A: Conversational Editor - card based with numbering + time + edit
 const SectionA = (() => {
   let count = 0;
-  let chatArea, input, sendBtn, guideOverlay;
+  let cardArea, input, sendBtn, guideOverlay;
 
   function init() {
-    chatArea = document.getElementById('chat-area-a');
+    cardArea = document.getElementById('card-area-a');
     input = document.getElementById('input-a');
     sendBtn = document.getElementById('send-a');
     guideOverlay = document.getElementById('guide-overlay-a');
 
     updatePlaceholder();
 
-    // Input events
     input.addEventListener('input', onInput);
     input.addEventListener('keydown', onKeydown);
     sendBtn.addEventListener('click', send);
   }
 
   function onInput() {
-    // Auto-resize textarea
     input.style.height = 'auto';
     input.style.height = Math.min(input.scrollHeight, 80) + 'px';
 
     const hasText = input.value.trim().length > 0;
     sendBtn.disabled = !hasText;
 
-    // Guide overlay visibility (UX5001 3.3)
     if (hasText && !input.value.includes('감사') && !input.value.includes('덕분에')) {
       guideOverlay.classList.add('visible');
     } else {
@@ -45,30 +42,43 @@ const SectionA = (() => {
     if (!text) return;
 
     count++;
-    addBubble('user', text);
+    addCard(text);
 
-    // Clear input, keep focus (UX5001 5.5)
     input.value = '';
     input.style.height = 'auto';
     sendBtn.disabled = true;
     guideOverlay.classList.remove('visible');
     updatePlaceholder();
     input.focus();
-
   }
 
-  function addBubble(type, text) {
-    const bubble = document.createElement('div');
-    bubble.className = `bubble bubble-${type}`;
-    bubble.textContent = text;
-    chatArea.appendChild(bubble);
-    scrollToBottom();
+  function addCard(text) {
+    const now = new Date();
+    const timeStr = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+
+    const card = document.createElement('div');
+    card.className = 'gratitude-card';
+    card.dataset.id = count;
+    card.innerHTML = `
+      <div class="card-header-row">
+        <span class="card-tag" style="background:#6C63FF1A;color:#6C63FF">감사 #${count}</span>
+        <span class="card-time">${timeStr}</span>
+        <button class="btn-edit" onclick="SectionA.editCard(${count})">수정</button>
+      </div>
+      <div class="card-text">${escapeHtml(text)}</div>
+    `;
+    cardArea.insertBefore(card, cardArea.firstChild);
   }
 
-  function scrollToBottom() {
-    requestAnimationFrame(() => {
-      chatArea.scrollTop = chatArea.scrollHeight;
-    });
+  function editCard(id) {
+    const card = cardArea.querySelector(`[data-id="${id}"]`);
+    if (!card) return;
+    const textEl = card.querySelector('.card-text');
+    const current = textEl.textContent;
+    const newText = prompt('수정:', current);
+    if (newText !== null && newText.trim()) {
+      textEl.textContent = newText.trim();
+    }
   }
 
   function updatePlaceholder() {
@@ -92,5 +102,5 @@ const SectionA = (() => {
     return div.innerHTML;
   }
 
-  return { init };
+  return { init, editCard };
 })();

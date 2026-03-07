@@ -1,4 +1,4 @@
-// Section C: Progress Editor (UX5001 Section 5)
+// Section C: Progress Editor - card based with progress bar + numbering + time + edit
 const SectionC = (() => {
   let count = 0;
   let cardArea, input, sendBtn, progressRow, counterEl, toastContainer;
@@ -34,20 +34,11 @@ const SectionC = (() => {
     if (!text) return;
 
     count++;
-
-    // 1. Light up progress icon (UX5001 5.2)
     lightUpIcon(count);
-
-    // 2. Update counter
     updateCounter();
-
-    // 3. Add gratitude card
     addCard(text);
-
-    // 4. Check milestones (UX5001 5.3)
     checkMilestone();
 
-    // 5. Clear input, keep focus (UX5001 5.5)
     input.value = '';
     input.style.height = 'auto';
     sendBtn.disabled = true;
@@ -64,7 +55,6 @@ const SectionC = (() => {
     icon.classList.add('lit');
     icon.querySelector('.icon-inner').textContent = SCENARIOS.sectionC.progressIcons[n - 1];
 
-    // 5-complete: add gold border to all
     if (n === 5) {
       setTimeout(() => {
         progressRow.querySelectorAll('.progress-icon.lit').forEach(ic => {
@@ -100,36 +90,27 @@ const SectionC = (() => {
 
     const card = document.createElement('div');
     card.className = 'gratitude-card';
+    card.dataset.id = count;
     card.innerHTML = `
-      <div class="card-tags"><span class="card-tag" style="background:#6C63FF1A;color:#6C63FF">감사 #${count}</span></div>
+      <div class="card-header-row">
+        <span class="card-tag" style="background:#FFD7001A;color:#B8860B">감사 #${count}</span>
+        <span class="card-time">${timeStr}</span>
+        <button class="btn-edit" onclick="SectionC.editCard(${count})">수정</button>
+      </div>
       <div class="card-text">${escapeHtml(text)}</div>
-      <div class="card-time">${timeStr}</div>
     `;
-
-    // Insert at top (newest first)
     cardArea.insertBefore(card, cardArea.firstChild);
   }
 
-  function showFeedback() {
-    setTimeout(() => {
-      // Show typing indicator
-      const typing = document.createElement('div');
-      typing.className = 'typing-indicator';
-      typing.innerHTML = '<span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span>';
-      cardArea.insertBefore(typing, cardArea.firstChild);
-
-      setTimeout(() => {
-        typing.remove();
-        const scenario = SCENARIOS.sectionC.responses.find(r => r.trigger === count);
-        const reply = scenario ? scenario.reply : SCENARIOS.sectionC.defaultReply;
-
-        const feedback = document.createElement('div');
-        feedback.className = 'ai-feedback';
-        feedback.textContent = reply;
-        cardArea.insertBefore(feedback, cardArea.firstChild);
-        cardArea.scrollTop = 0;
-      }, 800);
-    }, 200);
+  function editCard(id) {
+    const card = cardArea.querySelector(`[data-id="${id}"]`);
+    if (!card) return;
+    const textEl = card.querySelector('.card-text');
+    const current = textEl.textContent;
+    const newText = prompt('수정:', current);
+    if (newText !== null && newText.trim()) {
+      textEl.textContent = newText.trim();
+    }
   }
 
   function checkMilestone() {
@@ -141,7 +122,6 @@ const SectionC = (() => {
       toast.className = `toast-message ${milestone.cssClass}`;
       toast.textContent = milestone.message;
       toastContainer.appendChild(toast);
-
       setTimeout(() => toast.remove(), 2800);
     }, 500);
   }
@@ -152,5 +132,5 @@ const SectionC = (() => {
     return div.innerHTML;
   }
 
-  return { init };
+  return { init, editCard };
 })();

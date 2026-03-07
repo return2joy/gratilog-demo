@@ -1,4 +1,4 @@
-/* ===== Design Tokens (UX5001 Section 2) ===== */
+/* ===== Design Tokens ===== */
 :root {
   --color-bg-page: #F5F5F5;
   --color-bg-frame: #FFFFFF;
@@ -11,18 +11,6 @@
   --color-primary-light: #E8E6FF;
   --color-success: #228B22;
   --color-gold: #FFD700;
-  --color-ai-bubble: #F0EFFF;
-  --color-user-bubble: #E3F2FD;
-
-  --color-tag-god: #6C63FF;
-  --color-tag-neighbor: #FF6B6B;
-  --color-tag-self: #4ECDC4;
-
-  --color-emotion-joy: #FFD700;
-  --color-emotion-delight: #FFA07A;
-  --color-emotion-happiness: #FF69B4;
-  --color-emotion-hope: #87CEEB;
-  --color-emotion-belonging: #98D8C8;
 
   --color-stage-1: #8B4513;
   --color-stage-2: #90EE90;
@@ -38,8 +26,6 @@
   --space-xl: 24px;
 
   --radius-frame: 12px;
-  --radius-bubble: 16px;
-  --radius-bubble-tail: 4px;
   --radius-card: 8px;
   --radius-tag: 12px;
   --radius-btn: 22px;
@@ -47,7 +33,6 @@
 
   --shadow-frame: 0 2px 8px rgba(0,0,0,0.1);
   --shadow-card: 0 1px 3px rgba(0,0,0,0.08);
-  --shadow-popup: 0 -4px 16px rgba(0,0,0,0.12);
 
   --font-family: 'Pretendard Variable', 'Pretendard', -apple-system, 'Noto Sans KR', sans-serif;
 }
@@ -105,7 +90,7 @@ body {
   overflow: hidden;
 }
 
-/* ===== Mobile Frame (UX5001 Section 2.4) ===== */
+/* ===== Mobile Frame ===== */
 .mobile-frame {
   background: var(--color-bg-frame);
   border-radius: var(--radius-frame);
@@ -189,55 +174,53 @@ body {
 .btn-send:not(:disabled) { opacity: 1; }
 .btn-send:not(:disabled):hover { filter: brightness(1.1); }
 
-/* ===== Section A: Chat Bubbles (UX5001 Section 3.4) ===== */
-.bubble {
-  max-width: 80%;
-  padding: 10px 14px;
-  font-size: 14px;
-  line-height: 1.5;
+/* ===== Gratitude Card (unified for A, B, C) ===== */
+.gratitude-card {
+  background: var(--color-bg-frame);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: var(--space-sm) var(--space-md);
   animation: fadeSlideUp 300ms ease-out;
-  word-break: keep-all;
 }
-.bubble-ai {
-  align-self: flex-start;
-  background: var(--color-ai-bubble);
-  border-radius: var(--radius-bubble) var(--radius-bubble) var(--radius-bubble) var(--radius-bubble-tail);
+.card-header-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  margin-bottom: 4px;
 }
-.bubble-user {
-  align-self: flex-end;
-  background: var(--color-user-bubble);
-  border-radius: var(--radius-bubble) var(--radius-bubble) var(--radius-bubble-tail) var(--radius-bubble);
-}
-.bubble-label {
+.card-tag {
   font-size: 11px;
   font-weight: 500;
+  padding: 1px 8px;
+  border-radius: var(--radius-tag);
+}
+.card-time {
+  font-size: 10px;
+  color: var(--color-text-secondary);
+  margin-left: auto;
+}
+.btn-edit {
+  font-size: 10px;
+  color: var(--color-text-placeholder);
+  background: none;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  padding: 1px 6px;
+  cursor: pointer;
+  font-family: var(--font-family);
+  transition: color 150ms, border-color 150ms;
+}
+.btn-edit:hover {
   color: var(--color-primary);
-  margin-bottom: 2px;
+  border-color: var(--color-primary);
 }
+.card-text { font-size: 13px; line-height: 1.5; }
 
-/* Typing Indicator (UX5001 Section 3.5) */
-.typing-indicator {
-  align-self: flex-start;
-  background: var(--color-ai-bubble);
-  border-radius: var(--radius-bubble) var(--radius-bubble) var(--radius-bubble) var(--radius-bubble-tail);
-  padding: 12px 18px;
-  display: flex;
-  gap: 4px;
-  animation: fadeSlideUp 300ms ease-out;
-}
-.typing-dot {
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  background: var(--color-primary);
-  animation: typingDots 1.4s infinite;
-}
-.typing-dot:nth-child(2) { animation-delay: 200ms; }
-.typing-dot:nth-child(3) { animation-delay: 400ms; }
-
-/* Guide Overlay (UX5001 Section 3.3) */
+/* ===== Guide Overlay (Section A) ===== */
 .guide-overlay {
   padding: 6px var(--space-md);
-  font-size: 13px;
+  font-size: 12px;
   font-style: italic;
   color: var(--color-text-placeholder);
   opacity: 0;
@@ -249,176 +232,23 @@ body {
 }
 .guide-overlay.visible { opacity: 0.4; }
 
-/* ===== Section B: Quick Actions (UX5001 Section 4.2) ===== */
-.quick-actions {
-  display: flex;
-  align-items: center;
-  gap: var(--space-sm);
-  padding: 0 var(--space-md);
-  height: 44px;
-  border-top: 1px solid var(--color-border);
-  flex-shrink: 0;
-}
-.qa-btn {
-  width: 36px; height: 36px;
-  border: none;
-  background: transparent;
-  border-radius: 50%;
-  cursor: pointer;
-  color: var(--color-text-secondary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 150ms, color 150ms;
-}
-.qa-btn:hover, .qa-btn.active {
-  background: var(--color-primary-light);
-  color: var(--color-primary);
-}
-
-/* Tag Bottom Sheet (UX5001 Section 4.3) */
-.tag-sheet {
-  position: absolute;
-  bottom: 96px;
-  left: 0; right: 0;
-  background: var(--color-bg-frame);
-  border-radius: 16px 16px 0 0;
-  box-shadow: var(--shadow-popup);
-  padding: var(--space-md) var(--space-lg);
-  transform: translateY(100%);
-  transition: transform 250ms ease-out;
-  z-index: 10;
-}
-.tag-sheet.open { transform: translateY(0); }
-.tag-sheet-title { font-size: 13px; font-weight: 600; margin-bottom: var(--space-sm); }
-.tag-sheet-chips { display: flex; gap: var(--space-sm); justify-content: center; }
-.tag-chip {
-  display: flex; align-items: center; gap: 6px;
-  height: 36px;
-  padding: 0 16px;
-  border: none;
-  border-radius: var(--radius-tag);
-  background: color-mix(in srgb, var(--tag-color) 12%, transparent);
-  color: var(--tag-color);
-  font-family: var(--font-family);
-  font-size: 12px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: transform 150ms;
-}
-.tag-chip:hover { transform: scale(1.05); }
-
-/* Emotion Chips (UX5001 Section 4.4) */
-.emotion-chips {
-  display: flex;
-  gap: var(--space-sm);
-  padding: var(--space-xs) var(--space-md);
-  overflow-x: auto;
-  flex-shrink: 0;
-  max-height: 0;
-  opacity: 0;
-  transition: max-height 200ms ease-out, opacity 200ms ease-out, padding 200ms ease-out;
-}
-.emotion-chips::-webkit-scrollbar { display: none; }
-.emotion-chips.open { max-height: 44px; opacity: 1; padding: var(--space-sm) var(--space-md); }
-.chip {
-  height: 32px;
-  padding: 0 12px;
-  border: none;
-  border-radius: var(--radius-tag);
-  background: color-mix(in srgb, var(--chip-color) 15%, transparent);
-  color: color-mix(in srgb, var(--chip-color) 80%, #333);
-  font-family: var(--font-family);
-  font-size: 12px;
-  font-weight: 500;
-  cursor: pointer;
-  white-space: nowrap;
-  flex-shrink: 0;
-  transition: transform 150ms;
-}
-.chip:hover { transform: scale(1.08); }
-
-/* Mic Overlay (UX5001 Section 4.5) */
-.mic-overlay {
-  position: absolute;
-  inset: 36px 0 0 0;
-  background: rgba(255,255,255,0.95);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-lg);
-  z-index: 20;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 200ms;
-}
-.mic-overlay.open { opacity: 1; pointer-events: auto; }
-.mic-icon-pulse { animation: micPulse 1000ms ease-in-out infinite; }
-.mic-label { font-size: 14px; color: var(--color-text-secondary); }
-.mic-actions { display: flex; gap: var(--space-lg); }
-.mic-btn {
-  padding: 8px 24px;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-input);
-  background: var(--color-bg-frame);
-  font-family: var(--font-family);
-  font-size: 13px;
-  cursor: pointer;
-}
-.mic-btn-primary {
-  background: var(--color-primary);
-  color: #fff;
-  border-color: var(--color-primary);
-}
-
-/* Gratitude Card (UX5001 Section 4.7) */
-.gratitude-card {
-  background: var(--color-bg-frame);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-card);
-  box-shadow: var(--shadow-card);
-  padding: var(--space-md);
-  animation: fadeSlideUp 300ms ease-out;
-}
-.card-tags { display: flex; gap: var(--space-xs); margin-bottom: 6px; flex-wrap: wrap; }
-.card-tag {
-  font-size: 11px;
-  font-weight: 500;
-  padding: 2px 8px;
-  border-radius: var(--radius-tag);
-}
-.card-text { font-size: 14px; line-height: 1.5; }
-.card-time { font-size: 11px; color: var(--color-text-secondary); text-align: right; margin-top: 4px; }
-
-/* AI Question bubble in Section B */
-.ai-question {
-  align-self: flex-start;
-  background: var(--color-ai-bubble);
-  border-radius: var(--radius-bubble);
-  padding: 8px 12px;
-  font-size: 13px;
-  color: var(--color-primary);
-  animation: fadeSlideUp 300ms ease-out;
-}
-
-/* ===== Section C: Progress (UX5001 Section 5) ===== */
+/* ===== Section C: Progress ===== */
 .progress-section {
-  padding: var(--space-md);
+  padding: var(--space-sm) var(--space-md);
   text-align: center;
   border-bottom: 1px solid var(--color-border);
   flex-shrink: 0;
   position: relative;
 }
-.progress-label { font-size: 12px; color: var(--color-text-secondary); margin-bottom: var(--space-sm); }
+.progress-label { font-size: 11px; color: var(--color-text-secondary); margin-bottom: var(--space-xs); }
 .progress-row {
   display: flex;
   justify-content: center;
-  gap: var(--space-lg);
-  margin-bottom: var(--space-sm);
+  gap: var(--space-md);
+  margin-bottom: var(--space-xs);
 }
 .progress-icon {
-  width: 32px; height: 32px;
+  width: 28px; height: 28px;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -434,7 +264,7 @@ body {
   border: 2px solid transparent;
   animation: iconLightUp 400ms ease-out;
 }
-.progress-icon.lit .icon-inner { font-size: 16px; }
+.progress-icon.lit .icon-inner { font-size: 14px; }
 .progress-icon.lit[data-stage="1"] { background: color-mix(in srgb, var(--color-stage-1) 20%, #fff); border-color: var(--color-stage-1); }
 .progress-icon.lit[data-stage="2"] { background: color-mix(in srgb, var(--color-stage-2) 20%, #fff); border-color: var(--color-stage-2); }
 .progress-icon.lit[data-stage="3"] { background: color-mix(in srgb, var(--color-stage-3) 20%, #fff); border-color: var(--color-stage-3); }
@@ -443,18 +273,18 @@ body {
 
 .progress-icon.gold-border { border-color: var(--color-gold) !important; box-shadow: 0 0 8px rgba(255,215,0,0.4); }
 
-.progress-counter { font-size: 12px; font-weight: 600; color: var(--color-text-secondary); transition: color 300ms; }
+.progress-counter { font-size: 11px; font-weight: 600; color: var(--color-text-secondary); transition: color 300ms; }
 .progress-counter.success { color: var(--color-success); }
 .progress-counter.gold { color: var(--color-gold); }
 
-/* Toast (UX5001 Section 5.3) */
+/* Toast */
 .toast-container { position: relative; height: 0; }
 .toast-message {
   position: absolute;
   left: 50%; transform: translateX(-50%) translateY(-10px);
-  padding: 6px 16px;
+  padding: 4px 12px;
   border-radius: var(--radius-input);
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 500;
   white-space: nowrap;
   animation: toastAppear 2600ms ease-out forwards;
@@ -473,16 +303,6 @@ body {
   animation: goldShimmer 1500ms linear forwards;
 }
 
-/* AI Feedback in Section C */
-.ai-feedback {
-  align-self: flex-start;
-  background: var(--color-ai-bubble);
-  border-radius: var(--radius-bubble);
-  padding: 8px 12px;
-  font-size: 13px;
-  animation: fadeSlideUp 300ms ease-out;
-}
-
 /* ===== Submit Button ===== */
 .frame-submit {
   padding: var(--space-sm) var(--space-md);
@@ -491,13 +311,13 @@ body {
 }
 .btn-submit {
   width: 100%;
-  height: 40px;
+  height: 36px;
   border: none;
   border-radius: var(--radius-input);
   background: var(--color-primary);
   color: #fff;
   font-family: var(--font-family);
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
   cursor: pointer;
   transition: background 150ms, transform 100ms;
@@ -515,11 +335,6 @@ body {
   to { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes typingDots {
-  0%, 60%, 100% { opacity: 0.3; transform: translateY(0); }
-  30% { opacity: 1; transform: translateY(-4px); }
-}
-
 @keyframes iconLightUp {
   0% { transform: scale(0.8); }
   50% { transform: scale(1.3); }
@@ -531,11 +346,6 @@ body {
   10% { opacity: 1; transform: translateX(-50%) translateY(0); }
   80% { opacity: 1; transform: translateX(-50%) translateY(0); }
   100% { opacity: 0; transform: translateX(-50%) translateY(-10px); }
-}
-
-@keyframes micPulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.15); }
 }
 
 @keyframes goldShimmer {
