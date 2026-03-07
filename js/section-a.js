@@ -9,8 +9,6 @@ const SectionA = (() => {
     sendBtn = document.getElementById('send-a');
     guideOverlay = document.getElementById('guide-overlay-a');
 
-    // Initial AI greeting
-    addBubble('ai', SCENARIOS.sectionA.initialGreeting);
     updatePlaceholder();
 
     // Input events
@@ -57,34 +55,12 @@ const SectionA = (() => {
     updatePlaceholder();
     input.focus();
 
-    // Show typing indicator then AI response
-    showTypingThenReply();
-  }
-
-  function showTypingThenReply() {
-    const typing = document.createElement('div');
-    typing.className = 'typing-indicator';
-    typing.innerHTML = '<span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span>';
-    chatArea.appendChild(typing);
-    scrollToBottom();
-
-    const delay = 500 + Math.random() * 1000;
-    setTimeout(() => {
-      typing.remove();
-      const scenario = SCENARIOS.sectionA.responses.find(r => r.trigger === count);
-      const reply = scenario ? scenario.reply : SCENARIOS.sectionA.defaultReply;
-      addBubble('ai', reply);
-    }, delay);
   }
 
   function addBubble(type, text) {
     const bubble = document.createElement('div');
     bubble.className = `bubble bubble-${type}`;
-    if (type === 'ai') {
-      bubble.innerHTML = `<div class="bubble-label">AI</div>${escapeHtml(text)}`;
-    } else {
-      bubble.textContent = text;
-    }
+    bubble.textContent = text;
     chatArea.appendChild(bubble);
     scrollToBottom();
   }

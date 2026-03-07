@@ -8,6 +8,15 @@ document.addEventListener('DOMContentLoaded', () => {
   SectionA.init();
   SectionB.init();
   SectionC.init();
+
+  // Submit buttons
+  document.querySelectorAll('.btn-submit').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (btn.classList.contains('submitted')) return;
+      btn.classList.add('submitted');
+      btn.textContent = '제출 완료';
+    });
+  });
 });
 
 function updateClocks() {

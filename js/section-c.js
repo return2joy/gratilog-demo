@@ -44,13 +44,10 @@ const SectionC = (() => {
     // 3. Add gratitude card
     addCard(text);
 
-    // 4. Show AI feedback after delay (UX5001 5.4)
-    showFeedback();
-
-    // 5. Check milestones (UX5001 5.3)
+    // 4. Check milestones (UX5001 5.3)
     checkMilestone();
 
-    // 6. Clear input, keep focus (UX5001 5.5)
+    // 5. Clear input, keep focus (UX5001 5.5)
     input.value = '';
     input.style.height = 'auto';
     sendBtn.disabled = true;
