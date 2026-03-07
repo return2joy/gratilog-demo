@@ -24,8 +24,6 @@ const SectionB = (() => {
     document.getElementById('qa-tag-b').addEventListener('click', toggleTagSheet);
     document.getElementById('qa-emotion-b').addEventListener('click', toggleEmotionChips);
     document.getElementById('qa-mic-b').addEventListener('click', openMic);
-    document.getElementById('qa-bulb-b').addEventListener('click', askAiQuestion);
-
     // Tag chip clicks
     tagSheet.querySelectorAll('.tag-chip').forEach(chip => {
       chip.addEventListener('click', () => selectTag(chip.dataset.tag));
