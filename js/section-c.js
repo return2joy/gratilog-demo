@@ -1,4 +1,4 @@
-// Section C: Progress Editor - card based with progress bar + numbering + time + edit
+// Section C: Progress Editor
 const SectionC = (() => {
   let count = 0;
   let cardArea, input, sendBtn, progressRow, counterEl, toastContainer;
@@ -14,6 +14,14 @@ const SectionC = (() => {
     input.addEventListener('input', onInput);
     input.addEventListener('keydown', onKeydown);
     sendBtn.addEventListener('click', send);
+
+    cardArea.addEventListener('click', (e) => {
+      const card = e.target.closest('.gratitude-card');
+      if (!card) return;
+      if (e.target.closest('.btn-card-edit')) return editCard(card);
+      if (e.target.closest('.btn-card-delete')) return deleteCard(card);
+      toggleActions(card);
+    });
   }
 
   function onInput() {
@@ -48,7 +56,7 @@ const SectionC = (() => {
 
   function lightUpIcon(n) {
     if (n > 5) return;
-    const icon = progressRow.querySelector(`[data-stage="${n}"]`);
+    const icon = progressRow.querySelector('[data-stage="' + n + '"]');
     if (!icon) return;
 
     icon.classList.remove('dim');
@@ -57,9 +65,7 @@ const SectionC = (() => {
 
     if (n === 5) {
       setTimeout(() => {
-        progressRow.querySelectorAll('.progress-icon.lit').forEach(ic => {
-          ic.classList.add('gold-border');
-        });
+        progressRow.querySelectorAll('.progress-icon.lit').forEach(ic => ic.classList.add('gold-border'));
         progressRow.classList.add('shimmer');
         setTimeout(() => progressRow.classList.remove('shimmer'), 1500);
       }, 400);
@@ -68,14 +74,9 @@ const SectionC = (() => {
 
   function updateCounter() {
     const display = Math.min(count, 5);
-    counterEl.textContent = `${display}/5 완료`;
-
-    if (count >= 5) {
-      counterEl.classList.remove('success');
-      counterEl.classList.add('gold');
-    } else if (count >= 3) {
-      counterEl.classList.add('success');
-    }
+    counterEl.textContent = display + '/5 완료';
+    if (count >= 5) { counterEl.classList.remove('success'); counterEl.classList.add('gold'); }
+    else if (count >= 3) { counterEl.classList.add('success'); }
   }
 
   function updatePlaceholder() {
@@ -86,40 +87,51 @@ const SectionC = (() => {
 
   function addCard(text) {
     const now = new Date();
-    const timeStr = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+    const timeStr = now.getHours().toString().padStart(2, '0') + ':' + now.getMinutes().toString().padStart(2, '0');
 
     const card = document.createElement('div');
     card.className = 'gratitude-card';
     card.dataset.id = count;
-    card.innerHTML = `
-      <div class="card-header-row">
-        <span class="card-tag" style="background:#FFD7001A;color:#B8860B">감사 #${count}</span>
-        <span class="card-time">${timeStr}</span>
-        <button class="btn-edit" onclick="SectionC.editCard(${count})">수정</button>
-      </div>
-      <div class="card-text">${escapeHtml(text)}</div>
-    `;
+    card.innerHTML =
+      '<div class="card-header-row">' +
+        '<span class="card-number">' + count + '.</span>' +
+        '<span class="card-time">' + timeStr + '</span>' +
+      '</div>' +
+      '<div class="card-text">' + escapeHtml(text) + '</div>' +
+      '<div class="card-actions">' +
+        '<button class="btn-card-edit">수정</button>' +
+        '<button class="btn-card-delete">삭제</button>' +
+      '</div>';
     cardArea.insertBefore(card, cardArea.firstChild);
   }
 
-  function editCard(id) {
-    const card = cardArea.querySelector(`[data-id="${id}"]`);
-    if (!card) return;
+  function toggleActions(card) {
+    const wasOpen = card.classList.contains('show-actions');
+    cardArea.querySelectorAll('.gratitude-card.show-actions').forEach(c => c.classList.remove('show-actions'));
+    if (!wasOpen) card.classList.add('show-actions');
+  }
+
+  function editCard(card) {
     const textEl = card.querySelector('.card-text');
-    const current = textEl.textContent;
-    const newText = prompt('수정:', current);
+    const newText = prompt('수정:', textEl.textContent);
     if (newText !== null && newText.trim()) {
       textEl.textContent = newText.trim();
+    }
+    card.classList.remove('show-actions');
+  }
+
+  function deleteCard(card) {
+    if (confirm('삭제하시겠습니까?')) {
+      card.remove();
     }
   }
 
   function checkMilestone() {
     const milestone = SCENARIOS.sectionC.milestones[count];
     if (!milestone) return;
-
     setTimeout(() => {
       const toast = document.createElement('div');
-      toast.className = `toast-message ${milestone.cssClass}`;
+      toast.className = 'toast-message ' + milestone.cssClass;
       toast.textContent = milestone.message;
       toastContainer.appendChild(toast);
       setTimeout(() => toast.remove(), 2800);
@@ -132,5 +144,5 @@ const SectionC = (() => {
     return div.innerHTML;
   }
 
-  return { init, editCard };
+  return { init };
 })();

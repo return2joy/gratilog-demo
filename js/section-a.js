@@ -1,33 +1,30 @@
-// Section A: Conversational Editor - card based with numbering + time + edit
+// Section A: Simple Editor
 const SectionA = (() => {
   let count = 0;
-  let cardArea, input, sendBtn, guideOverlay;
+  let cardArea, input, sendBtn;
 
   function init() {
     cardArea = document.getElementById('card-area-a');
     input = document.getElementById('input-a');
     sendBtn = document.getElementById('send-a');
-    guideOverlay = document.getElementById('guide-overlay-a');
-
-    updatePlaceholder();
 
     input.addEventListener('input', onInput);
     input.addEventListener('keydown', onKeydown);
     sendBtn.addEventListener('click', send);
+
+    cardArea.addEventListener('click', (e) => {
+      const card = e.target.closest('.gratitude-card');
+      if (!card) return;
+      if (e.target.closest('.btn-card-edit')) return editCard(card);
+      if (e.target.closest('.btn-card-delete')) return deleteCard(card);
+      toggleActions(card);
+    });
   }
 
   function onInput() {
     input.style.height = 'auto';
     input.style.height = Math.min(input.scrollHeight, 80) + 'px';
-
-    const hasText = input.value.trim().length > 0;
-    sendBtn.disabled = !hasText;
-
-    if (hasText && !input.value.includes('감사') && !input.value.includes('덕분에')) {
-      guideOverlay.classList.add('visible');
-    } else {
-      guideOverlay.classList.remove('visible');
-    }
+    sendBtn.disabled = !input.value.trim();
   }
 
   function onKeydown(e) {
@@ -47,52 +44,47 @@ const SectionA = (() => {
     input.value = '';
     input.style.height = 'auto';
     sendBtn.disabled = true;
-    guideOverlay.classList.remove('visible');
-    updatePlaceholder();
     input.focus();
   }
 
   function addCard(text) {
     const now = new Date();
-    const timeStr = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+    const timeStr = now.getHours().toString().padStart(2, '0') + ':' + now.getMinutes().toString().padStart(2, '0');
 
     const card = document.createElement('div');
     card.className = 'gratitude-card';
     card.dataset.id = count;
-    card.innerHTML = `
-      <div class="card-header-row">
-        <span class="card-tag" style="background:#6C63FF1A;color:#6C63FF">감사 #${count}</span>
-        <span class="card-time">${timeStr}</span>
-        <button class="btn-edit" onclick="SectionA.editCard(${count})">수정</button>
-      </div>
-      <div class="card-text">${escapeHtml(text)}</div>
-    `;
+    card.innerHTML =
+      '<div class="card-header-row">' +
+        '<span class="card-number">' + count + '.</span>' +
+        '<span class="card-time">' + timeStr + '</span>' +
+      '</div>' +
+      '<div class="card-text">' + escapeHtml(text) + '</div>' +
+      '<div class="card-actions">' +
+        '<button class="btn-card-edit">수정</button>' +
+        '<button class="btn-card-delete">삭제</button>' +
+      '</div>';
     cardArea.insertBefore(card, cardArea.firstChild);
   }
 
-  function editCard(id) {
-    const card = cardArea.querySelector(`[data-id="${id}"]`);
-    if (!card) return;
+  function toggleActions(card) {
+    const wasOpen = card.classList.contains('show-actions');
+    cardArea.querySelectorAll('.gratitude-card.show-actions').forEach(c => c.classList.remove('show-actions'));
+    if (!wasOpen) card.classList.add('show-actions');
+  }
+
+  function editCard(card) {
     const textEl = card.querySelector('.card-text');
-    const current = textEl.textContent;
-    const newText = prompt('수정:', current);
+    const newText = prompt('수정:', textEl.textContent);
     if (newText !== null && newText.trim()) {
       textEl.textContent = newText.trim();
     }
+    card.classList.remove('show-actions');
   }
 
-  function updatePlaceholder() {
-    const sc = SCENARIOS.sectionA;
-    if (count > 0 && count < sc.countPlaceholders.length) {
-      input.placeholder = sc.countPlaceholders[count];
-    } else if (count >= sc.countPlaceholders.length) {
-      input.placeholder = sc.countPlaceholders[sc.countPlaceholders.length - 1];
-    } else {
-      const hour = new Date().getHours();
-      if (hour >= 6 && hour < 12) input.placeholder = sc.nudgePlaceholders.morning;
-      else if (hour >= 12 && hour < 18) input.placeholder = sc.nudgePlaceholders.afternoon;
-      else if (hour >= 18 && hour < 24) input.placeholder = sc.nudgePlaceholders.evening;
-      else input.placeholder = sc.nudgePlaceholders.lateNight;
+  function deleteCard(card) {
+    if (confirm('삭제하시겠습니까?')) {
+      card.remove();
     }
   }
 
@@ -102,5 +94,5 @@ const SectionA = (() => {
     return div.innerHTML;
   }
 
-  return { init, editCard };
+  return { init };
 })();

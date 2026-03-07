@@ -187,50 +187,49 @@ body {
   display: flex;
   align-items: center;
   gap: var(--space-xs);
-  margin-bottom: 4px;
+  margin-bottom: 2px;
 }
-.card-tag {
-  font-size: 11px;
-  font-weight: 500;
-  padding: 1px 8px;
-  border-radius: var(--radius-tag);
+.card-number {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-primary);
+  min-width: 20px;
 }
 .card-time {
   font-size: 10px;
   color: var(--color-text-secondary);
   margin-left: auto;
 }
-.btn-edit {
-  font-size: 10px;
-  color: var(--color-text-placeholder);
-  background: none;
-  border: 1px solid var(--color-border);
-  border-radius: 4px;
-  padding: 1px 6px;
-  cursor: pointer;
-  font-family: var(--font-family);
-  transition: color 150ms, border-color 150ms;
+.card-text {
+  font-size: 13px;
+  line-height: 1.5;
+  padding-left: 20px;
 }
-.btn-edit:hover {
-  color: var(--color-primary);
-  border-color: var(--color-primary);
-}
-.card-text { font-size: 13px; line-height: 1.5; }
+.gratitude-card { cursor: pointer; transition: background 150ms; }
+.gratitude-card:hover { background: var(--color-bg-input); }
 
-/* ===== Guide Overlay (Section A) ===== */
-.guide-overlay {
-  padding: 6px var(--space-md);
-  font-size: 12px;
-  font-style: italic;
-  color: var(--color-text-placeholder);
-  opacity: 0;
-  transition: opacity 200ms ease-in;
-  pointer-events: none;
-  flex-shrink: 0;
-  border-top: 1px solid var(--color-border);
-  background: var(--color-bg-frame);
+/* Card actions (hidden by default, shown on click) */
+.card-actions {
+  display: none;
+  gap: var(--space-sm);
+  padding-top: var(--space-xs);
+  padding-left: 20px;
 }
-.guide-overlay.visible { opacity: 0.4; }
+.gratitude-card.show-actions .card-actions { display: flex; }
+.btn-card-edit, .btn-card-delete {
+  font-size: 11px;
+  padding: 2px 10px;
+  border-radius: 4px;
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-frame);
+  font-family: var(--font-family);
+  cursor: pointer;
+  transition: all 150ms;
+}
+.btn-card-edit { color: var(--color-primary); }
+.btn-card-edit:hover { background: var(--color-primary-light); border-color: var(--color-primary); }
+.btn-card-delete { color: #E74C3C; }
+.btn-card-delete:hover { background: #FDEDEC; border-color: #E74C3C; }
 
 /* ===== Section C: Progress ===== */
 .progress-section {

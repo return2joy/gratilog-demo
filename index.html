@@ -6,7 +6,7 @@
   <title>GratiLog - 감사일기 에디터 데모</title>
   <link rel="preconnect" href="https://cdn.jsdelivr.net">
   <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=6">
+  <link rel="stylesheet" href="css/style.css?v=7">
 </head>
 <body>
   <div class="layout">
@@ -17,7 +17,7 @@
         <p>감사일기 에디터 데모</p>
       </div>
       <nav class="sidebar-nav">
-        <div class="sidebar-item active">A. 대화형</div>
+        <div class="sidebar-item active">A. 심플</div>
         <div class="sidebar-item">B. 진행도</div>
       </nav>
       <div class="sidebar-footer">
@@ -25,20 +25,17 @@
       </div>
     </aside>
 
-    <!-- Section A: Conversational Editor -->
+    <!-- Section A: Simple Editor -->
     <div class="editor-column">
       <div class="mobile-frame" id="section-a">
         <div class="frame-header">
-          <span class="frame-title">A. 대화형 에디터</span>
+          <span class="frame-title">A. 심플 에디터</span>
           <span class="frame-time" data-clock></span>
         </div>
         <div class="frame-body" id="card-area-a"></div>
-        <div class="guide-overlay" id="guide-overlay-a">
-          [대상] 덕분에, [감정]을 함께 누릴 수 있어 감사합니다.
-        </div>
         <div class="frame-input">
           <div class="input-row">
-            <textarea id="input-a" class="text-input" rows="1" placeholder="감사한 것을 자유롭게 적어보세요..."></textarea>
+            <textarea id="input-a" class="text-input" rows="1" placeholder="감사한 것을 적어보세요..."></textarea>
             <button class="btn-send" id="send-a" disabled aria-label="전송">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M2 21l21-9L2 3v7l15 2-15 2v7z" fill="currentColor"/></svg>
             </button>
@@ -50,7 +47,7 @@
       </div>
     </div>
 
-    <!-- Section C: Progress Editor -->
+    <!-- Section B: Progress Editor -->
     <div class="editor-column">
       <div class="mobile-frame" id="section-c">
         <div class="frame-header">
