@@ -74,7 +74,16 @@ const SectionA = (() => {
           '<button class="btn-edit-save">저장</button>' +
         '</div>' +
       '</div>';
-    cardArea.insertBefore(card, cardArea.firstChild);
+    cardArea.appendChild(card);
+    cardArea.scrollTop = cardArea.scrollHeight;
+  }
+
+  function renumberCards() {
+    var cards = cardArea.querySelectorAll('.gratitude-card');
+    for (var i = 0; i < cards.length; i++) {
+      cards[i].querySelector('.card-number').textContent = (i + 1) + '.';
+    }
+    count = cards.length;
   }
 
   function toggleActions(card) {
@@ -110,6 +119,7 @@ const SectionA = (() => {
 
   function deleteCard(card) {
     card.remove();
+    renumberCards();
   }
 
   function escapeHtml(text) {
