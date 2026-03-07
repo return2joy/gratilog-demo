@@ -6,7 +6,7 @@
   <title>GratiLog - 감사일기 에디터 데모</title>
   <link rel="preconnect" href="https://cdn.jsdelivr.net">
   <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=7">
+  <link rel="stylesheet" href="css/style.css?v=8">
 </head>
 <body>
   <div class="layout">
@@ -30,7 +30,8 @@
       <div class="mobile-frame" id="section-a">
         <div class="frame-header">
           <span class="frame-title">A. 심플 에디터</span>
-          <span class="frame-time" data-clock></span>
+          <span class="frame-date" data-date></span>
+          <button class="btn-submit-sm" id="submit-a">제출</button>
         </div>
         <div class="frame-body" id="card-area-a"></div>
         <div class="frame-input">
@@ -41,9 +42,6 @@
             </button>
           </div>
         </div>
-        <div class="frame-submit">
-          <button class="btn-submit" id="submit-a">오늘 제출</button>
-        </div>
       </div>
     </div>
 
@@ -52,7 +50,8 @@
       <div class="mobile-frame" id="section-c">
         <div class="frame-header">
           <span class="frame-title">B. 진행도 에디터</span>
-          <span class="frame-time" data-clock></span>
+          <span class="frame-date" data-date></span>
+          <button class="btn-submit-sm" id="submit-c">제출</button>
         </div>
         <div class="progress-section">
           <div class="progress-label">오늘의 감사 진행도</div>
@@ -74,9 +73,6 @@
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M2 21l21-9L2 3v7l15 2-15 2v7z" fill="currentColor"/></svg>
             </button>
           </div>
-        </div>
-        <div class="frame-submit">
-          <button class="btn-submit" id="submit-c">오늘 제출</button>
         </div>
       </div>
     </div>
