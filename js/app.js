@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Initialize all sections
   SectionA.init();
-  SectionB.init();
   SectionC.init();
 
   // Submit buttons

@@ -52,7 +52,7 @@ body {
 /* ===== Layout: 4-column (sidebar + 3 editors) ===== */
 .layout {
   display: grid;
-  grid-template-columns: 200px 1fr 1fr 1fr;
+  grid-template-columns: 200px 1fr 1fr;
   height: 100vh;
   gap: 0;
 }
