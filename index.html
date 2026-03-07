@@ -10,10 +10,24 @@
 </head>
 <body>
   <div class="layout">
-    <!-- LEFT SIDEBAR: 3 mobile frames -->
+    <!-- LEFT SIDEBAR: Navigation -->
     <aside class="sidebar">
+      <div class="sidebar-brand">
+        <h2>GratiLog</h2>
+        <p>감사일기 에디터 데모</p>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="sidebar-item active">A. 대화형</div>
+        <div class="sidebar-item">B. 퀵 액션</div>
+        <div class="sidebar-item">C. 진행도</div>
+      </nav>
+      <div class="sidebar-footer">
+        <p>3가지 에디터를 체험해 보세요</p>
+      </div>
+    </aside>
 
-      <!-- Section A: Chat-based Editor -->
+    <!-- Section A: Chat-based Editor -->
+    <div class="editor-column">
       <div class="mobile-frame" id="section-a">
         <div class="frame-header">
           <span class="frame-title">A. 대화형 에디터</span>
@@ -32,8 +46,10 @@
           </div>
         </div>
       </div>
+    </div>
 
-      <!-- Section B: Quick Action Editor -->
+    <!-- Section B: Quick Action Editor -->
+    <div class="editor-column">
       <div class="mobile-frame" id="section-b">
         <div class="frame-header">
           <span class="frame-title">B. 퀵 액션 에디터</span>
@@ -100,8 +116,10 @@
           </button>
         </div>
       </div>
+    </div>
 
-      <!-- Section C: Progress Editor -->
+    <!-- Section C: Progress Editor -->
+    <div class="editor-column">
       <div class="mobile-frame" id="section-c">
         <div class="frame-header">
           <span class="frame-title">C. 진행도 에디터</span>
@@ -129,17 +147,7 @@
           </div>
         </div>
       </div>
-
-    </aside>
-
-    <!-- MAIN CONTENT area (placeholder) -->
-    <main class="main-content">
-      <div class="main-placeholder">
-        <h1>GratiLog</h1>
-        <p>감사일기 에디터 데모</p>
-        <p class="main-hint">왼쪽 사이드바에서 3가지 에디터를 체험해 보세요</p>
-      </div>
-    </main>
+    </div>
   </div>
 
   <script src="js/scenarios.js"></script>

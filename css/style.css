@@ -64,33 +64,46 @@ body {
   height: 100vh;
 }
 
-/* ===== Layout (SA0301 Section 7.1) ===== */
+/* ===== Layout: 4-column (sidebar + 3 editors) ===== */
 .layout {
   display: grid;
-  grid-template-columns: minmax(360px, 480px) 1fr;
+  grid-template-columns: 200px 1fr 1fr 1fr;
   height: 100vh;
+  gap: 0;
 }
 
 .sidebar {
-  display: grid;
-  grid-template-rows: 1fr 1fr 1fr;
-  gap: var(--space-sm);
+  display: flex;
+  flex-direction: column;
+  background: var(--color-primary);
+  color: #fff;
+  padding: var(--space-lg);
+  overflow: hidden;
+}
+.sidebar-brand { margin-bottom: var(--space-xl); padding-top: var(--space-xl); }
+.sidebar-brand h2 { font-size: 22px; font-weight: 700; }
+.sidebar-brand p { font-size: 12px; opacity: 0.7; margin-top: 4px; }
+.sidebar-nav { display: flex; flex-direction: column; gap: var(--space-sm); }
+.sidebar-item {
+  padding: 10px 14px;
+  border-radius: var(--radius-card);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 150ms;
+}
+.sidebar-item:hover, .sidebar-item.active { background: rgba(255,255,255,0.15); }
+.sidebar-footer { margin-top: auto; font-size: 11px; opacity: 0.5; }
+
+.editor-column {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
   padding: var(--space-sm);
   background: var(--color-bg-page);
-  overflow: hidden;
   border-right: 1px solid var(--color-border);
+  overflow: hidden;
 }
-
-.main-content {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #FAFAFA;
-}
-.main-placeholder { text-align: center; color: var(--color-text-secondary); }
-.main-placeholder h1 { font-size: 32px; font-weight: 700; color: var(--color-primary); margin-bottom: 8px; }
-.main-placeholder p { font-size: 16px; margin-bottom: 4px; }
-.main-hint { font-size: 13px; color: var(--color-text-placeholder); margin-top: 12px !important; }
 
 /* ===== Mobile Frame (UX5001 Section 2.4) ===== */
 .mobile-frame {
@@ -101,6 +114,8 @@ body {
   overflow: hidden;
   box-shadow: var(--shadow-frame);
   position: relative;
+  width: 100%;
+  max-width: 480px;
 }
 
 .frame-header {
