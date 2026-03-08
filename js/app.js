@@ -1,10 +1,9 @@
 // App initialization
 document.addEventListener('DOMContentLoaded', () => {
-  // Initialize date displays
   updateDates();
 
-  // Initialize all sections
   SectionA.init();
+  SectionB.init();
   SectionC.init();
 
   // Submit buttons (small, in header)

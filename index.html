@@ -6,7 +6,7 @@
   <title>GratiLog - 감사일기 에디터 데모</title>
   <link rel="preconnect" href="https://cdn.jsdelivr.net">
   <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=8">
+  <link rel="stylesheet" href="css/style.css?v=9">
 </head>
 <body>
   <div class="layout">
@@ -14,22 +14,26 @@
     <aside class="sidebar">
       <div class="sidebar-brand">
         <h2>GratiLog</h2>
-        <p>감사일기 에디터 데모</p>
+        <p>감사일기 플랫폼</p>
       </div>
       <nav class="sidebar-nav">
-        <div class="sidebar-item active">A. 심플</div>
-        <div class="sidebar-item">B. 진행도</div>
+        <div class="sidebar-item active">홈</div>
+        <div class="sidebar-item">나의 일지 관리</div>
+        <div class="sidebar-item">소그룹 보기</div>
+        <div class="sidebar-item">전체 보기</div>
+        <div class="sidebar-item">설정</div>
+        <div class="sidebar-item">화면 설정</div>
       </nav>
       <div class="sidebar-footer">
-        <p>2가지 에디터를 체험해 보세요</p>
+        <p>3가지 에디터를 체험해 보세요</p>
       </div>
     </aside>
 
-    <!-- Section A: Simple Editor -->
+    <!-- Section A: 감사일기 (Simple) -->
     <div class="editor-column">
       <div class="mobile-frame" id="section-a">
         <div class="frame-header">
-          <span class="frame-title">A. 심플 에디터</span>
+          <span class="frame-title">감사일기</span>
           <span class="frame-date" data-date></span>
           <button class="btn-submit-sm" id="submit-a">제출</button>
         </div>
@@ -45,30 +49,38 @@
       </div>
     </div>
 
-    <!-- Section B: Progress Editor -->
+    <!-- Section B: 4+ 이야기 작성 (Conversational) -->
+    <div class="editor-column">
+      <div class="mobile-frame" id="section-b">
+        <div class="frame-header">
+          <span class="frame-title">4+ 이야기 작성</span>
+          <span class="frame-date" data-date></span>
+          <button class="btn-submit-sm" id="submit-b">제출</button>
+        </div>
+        <div class="frame-body chat-area" id="chat-area-b"></div>
+        <div class="frame-input">
+          <div class="input-row">
+            <textarea id="input-b" class="text-input" rows="1" placeholder="이야기를 작성해 보세요..."></textarea>
+            <button class="btn-send" id="send-b" disabled aria-label="전송">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M2 21l21-9L2 3v7l15 2-15 2v7z" fill="currentColor"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section C: 임마누엘일기 (Conversational) -->
     <div class="editor-column">
       <div class="mobile-frame" id="section-c">
         <div class="frame-header">
-          <span class="frame-title">B. 진행도 에디터</span>
+          <span class="frame-title">임마누엘일기</span>
           <span class="frame-date" data-date></span>
           <button class="btn-submit-sm" id="submit-c">제출</button>
         </div>
-        <div class="progress-section">
-          <div class="progress-label">오늘의 감사 진행도</div>
-          <div class="progress-row" id="progress-row-c">
-            <div class="progress-icon dim" data-stage="1"><span class="icon-inner"></span></div>
-            <div class="progress-icon dim" data-stage="2"><span class="icon-inner"></span></div>
-            <div class="progress-icon dim" data-stage="3"><span class="icon-inner"></span></div>
-            <div class="progress-icon dim" data-stage="4"><span class="icon-inner"></span></div>
-            <div class="progress-icon dim" data-stage="5"><span class="icon-inner"></span></div>
-          </div>
-          <div class="progress-counter" id="progress-counter-c">0/5 완료</div>
-          <div class="toast-container" id="toast-c"></div>
-        </div>
-        <div class="frame-body" id="card-area-c"></div>
+        <div class="frame-body chat-area" id="chat-area-c"></div>
         <div class="frame-input">
           <div class="input-row">
-            <textarea id="input-c" class="text-input" rows="1" placeholder="첫 번째 감사를 적어보세요..."></textarea>
+            <textarea id="input-c" class="text-input" rows="1" placeholder="오늘의 임마누엘 이야기를 적어보세요..."></textarea>
             <button class="btn-send" id="send-c" disabled aria-label="전송">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M2 21l21-9L2 3v7l15 2-15 2v7z" fill="currentColor"/></svg>
             </button>
@@ -80,6 +92,7 @@
 
   <script src="js/scenarios.js"></script>
   <script src="js/section-a.js"></script>
+  <script src="js/section-b.js"></script>
   <script src="js/section-c.js"></script>
   <script src="js/app.js"></script>
 </body>

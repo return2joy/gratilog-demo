@@ -1,4 +1,4 @@
-// Section A: Simple Editor
+// Section A: 감사일기 (Simple Card Editor)
 const SectionA = (() => {
   let count = 0;
   let cardArea, input, sendBtn;
@@ -56,23 +56,24 @@ const SectionA = (() => {
 
     const card = document.createElement('div');
     card.className = 'gratitude-card';
-    card.dataset.id = count;
     card.innerHTML =
-      '<div class="card-header-row">' +
-        '<span class="card-number">' + count + '.</span>' +
-        '<span class="card-time">' + timeStr + '</span>' +
-        '<span class="card-actions-inline">' +
-          '<button class="btn-card-edit" title="수정"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>' +
-          '<button class="btn-card-delete" title="삭제"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg></button>' +
-        '</span>' +
-      '</div>' +
-      '<div class="card-text">' + escapeHtml(text) + '</div>' +
-      '<div class="card-edit-area">' +
-        '<textarea class="card-edit-textarea"></textarea>' +
-        '<div class="card-edit-btns">' +
-          '<button class="btn-edit-cancel">취소</button>' +
-          '<button class="btn-edit-save">저장</button>' +
+      '<div class="card-content">' +
+        '<div class="card-header-row">' +
+          '<span class="card-number">' + count + '.</span>' +
+          '<span class="card-time">' + timeStr + '</span>' +
         '</div>' +
+        '<div class="card-text">' + escapeHtml(text) + '</div>' +
+        '<div class="card-edit-area">' +
+          '<textarea class="card-edit-textarea"></textarea>' +
+          '<div class="card-edit-btns">' +
+            '<button class="btn-edit-cancel">취소</button>' +
+            '<button class="btn-edit-save">저장</button>' +
+          '</div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="card-actions-side">' +
+        '<button class="btn-card-edit" title="수정"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>' +
+        '<button class="btn-card-delete" title="삭제"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg></button>' +
       '</div>';
     cardArea.appendChild(card);
     cardArea.scrollTop = cardArea.scrollHeight;
