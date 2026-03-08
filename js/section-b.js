@@ -49,7 +49,7 @@ const SectionB = (() => {
   function send() {
     var text = input.value.trim();
     if (!text) return;
-    if (currentStep >= 6) return; // all steps done
+    if (currentStep >= data.totalSteps) return; // all steps done
 
     addUserCard(text, currentStep);
     currentStep++;
@@ -58,7 +58,7 @@ const SectionB = (() => {
     input.style.height = 'auto';
     sendBtn.disabled = true;
 
-    if (currentStep < 6) {
+    if (currentStep < data.totalSteps) {
       // Update placeholder for next step
       input.placeholder = data.steps[currentStep].placeholder;
       // Show next guide question after short delay
@@ -100,7 +100,7 @@ const SectionB = (() => {
     msg.innerHTML =
       '<div class="guide-avatar">' + PROMPTS.guideName.charAt(0) + '</div>' +
       '<div class="guide-bubble">' +
-        '<div class="guide-name">' + PROMPTS.guideName + ' <span class="guide-step">' + (step + 1) + '/6 ' + stepLabel + '</span></div>' +
+        '<div class="guide-name">' + PROMPTS.guideName + ' <span class="guide-step">' + (step + 1) + '/' + data.totalSteps + ' ' + stepLabel + '</span></div>' +
         '<div class="guide-text">' + randomMsg + '</div>' +
       '</div>';
     chatArea.appendChild(msg);
