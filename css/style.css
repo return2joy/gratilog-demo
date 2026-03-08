@@ -299,11 +299,60 @@ body {
 .btn-edit-cancel { background: var(--color-bg-input); color: var(--color-text-secondary); border: 1px solid var(--color-border); }
 .btn-edit-cancel:hover { background: var(--color-border); }
 
-/* ===== Chat Bubble (Section B & C) ===== */
+/* ===== Guide Message (AI: 관기훈) ===== */
 .chat-area {
-  gap: var(--space-md);
+  gap: var(--space-sm);
 }
-.chat-bubble {
+.chat-guide-msg {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  animation: fadeSlideUp 300ms ease-out;
+  padding: var(--space-xs) 0;
+}
+.guide-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.guide-bubble {
+  flex: 1;
+  min-width: 0;
+}
+.guide-name {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-primary);
+  margin-bottom: 2px;
+}
+.guide-step {
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  background: var(--color-bg-input);
+  padding: 1px 6px;
+  border-radius: 8px;
+  margin-left: 4px;
+}
+.guide-text {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--color-text-primary);
+  background: var(--color-bg-input);
+  border-radius: 4px 12px 12px 12px;
+  padding: var(--space-sm) var(--space-md);
+}
+
+/* ===== User Card (4+ 이야기 & 임마누엘) ===== */
+.chat-user-card {
   display: flex;
   align-items: flex-start;
   gap: var(--space-sm);
@@ -312,72 +361,48 @@ body {
   transition: background 150ms;
   border-radius: var(--radius-card);
   padding: var(--space-xs);
+  margin-left: 36px;
 }
-.chat-bubble:hover { background: var(--color-bg-input); }
-.chat-bubble-content {
+.chat-user-card:hover { background: rgba(108, 99, 255, 0.04); }
+.user-card-content {
   flex: 1;
   min-width: 0;
 }
-.chat-bubble-header {
+.user-card-header {
   display: flex;
   align-items: center;
   gap: var(--space-xs);
   margin-bottom: 2px;
 }
-.chat-number {
-  font-size: 12px;
+.user-card-step {
+  font-size: 11px;
   font-weight: 700;
   color: var(--color-primary);
 }
-.chat-time {
+.user-card-time {
   font-size: 10px;
   color: var(--color-text-secondary);
+  margin-left: auto;
 }
-.chat-text {
+.user-card-text {
   font-size: 13px;
   line-height: 1.6;
   color: var(--color-text-primary);
   background: var(--color-primary-light);
-  border-radius: 12px 12px 12px 4px;
+  border-radius: 12px 12px 4px 12px;
   padding: var(--space-sm) var(--space-md);
 }
-.chat-actions-side {
-  display: none;
-  flex-direction: column;
-  gap: 2px;
-  flex-shrink: 0;
-}
-.chat-bubble.show-actions .chat-actions-side { display: flex; }
+.chat-user-card.show-actions .card-actions-side { display: flex; }
 
-/* Chat inline edit */
-.chat-edit-area {
+/* User card inline edit */
+.user-card-edit-area {
   display: none;
   margin-top: var(--space-xs);
 }
-.chat-bubble.editing .chat-text { display: none; }
-.chat-bubble.editing .chat-edit-area { display: block; }
-.chat-bubble.editing { cursor: default; }
-.chat-bubble.editing:hover { background: transparent; }
-.chat-edit-textarea {
-  width: 100%;
-  border: 1px solid var(--color-primary);
-  border-radius: 6px;
-  padding: 6px 10px;
-  font-family: var(--font-family);
-  font-size: 13px;
-  line-height: 1.5;
-  resize: none;
-  outline: none;
-  background: var(--color-bg-input);
-  color: var(--color-text-primary);
-  min-height: 60px;
-}
-.chat-edit-btns {
-  display: flex;
-  gap: var(--space-xs);
-  margin-top: var(--space-xs);
-  justify-content: flex-end;
-}
+.chat-user-card.editing .user-card-text { display: none; }
+.chat-user-card.editing .user-card-edit-area { display: block; }
+.chat-user-card.editing { cursor: default; }
+.chat-user-card.editing:hover { background: transparent; }
 
 /* ===== Keyframes ===== */
 @keyframes fadeSlideUp {
